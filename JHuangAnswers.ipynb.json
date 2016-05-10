@@ -1,0 +1,457 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Physics 240 \n",
+    "## Intermediate Physics Laboratory\n",
+    "## FINAL EXAM\n",
+    "\n",
+    "### Instructions: \n",
+    "Answer the following questions and typeset your answers within this notebook, \n",
+    "using a mix of markdown and LaTeX code. Some of your work will likely be done\n",
+    "by hand; for this work, make sure to turn in these calculations, but still put the \n",
+    "answers in this Jupyter Notebook. \n",
+    "\n",
+    "Follow the steps below and answer the questions as indicated."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>\n",
+       "<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>\n",
+       "<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400' rel='stylesheet' type='text/css'>\n",
+       "<style>\n",
+       "\n",
+       "@font-face {\n",
+       "    font-family: \"Computer Modern\";\n",
+       "    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');\n",
+       "}\n",
+       "\n",
+       "\n",
+       "#notebook_panel { /* main background */\n",
+       "    background: rgb(245,245,245);\n",
+       "}\n",
+       "\n",
+       "div.cell { /* set cell width */\n",
+       "    width: 800px;\n",
+       "}\n",
+       "\n",
+       "div #notebook { /* centre the content */\n",
+       "    background: #fff; /* white background for content */\n",
+       "    width: 1000px;\n",
+       "    margin: auto;\n",
+       "    padding-left: 0em;\n",
+       "}\n",
+       "\n",
+       "#notebook li { /* More space between bullet points */\n",
+       "margin-top:0.8em;\n",
+       "}\n",
+       "\n",
+       "/* draw border around running cells */\n",
+       "div.cell.border-box-sizing.code_cell.running {\n",
+       "    border: 1px solid #111;\n",
+       "}\n",
+       "\n",
+       "/* Put a solid color box around each cell and its output, visually linking them*/\n",
+       "div.cell.code_cell {\n",
+       "    background-color: rgb(256,256,256);\n",
+       "    border-radius: 0px;\n",
+       "    padding: 0.5em;\n",
+       "    margin-left:1em;\n",
+       "    margin-top: 1em;\n",
+       "}\n",
+       "\n",
+       "\n",
+       "div.text_cell_render{\n",
+       "    font-family: 'Alegreya Sans' sans-serif;\n",
+       "    line-height: 140%;\n",
+       "    font-size: 125%;\n",
+       "    font-weight: 400;\n",
+       "    width:600px;\n",
+       "    margin-left:auto;\n",
+       "    margin-right:auto;\n",
+       "}\n",
+       "\n",
+       "/* Formatting for header cells */\n",
+       ".text_cell_render h1 {\n",
+       "    font-family: 'Alegreya Sans', sans-serif;\n",
+       "    font-style:regular;\n",
+       "    font-weight: 200;\n",
+       "    font-size: 45pt;\n",
+       "    line-height: 100%;\n",
+       "    color:#CD2305;\n",
+       "    margin-bottom: 0.5em;\n",
+       "    margin-top: 0.5em;\n",
+       "    display: block;\n",
+       "}\n",
+       ".text_cell_render h2 {\n",
+       "    font-family: 'Fenix', serif;\n",
+       "    font-size: 22pt;\n",
+       "    line-height: 100%;\n",
+       "    margin-bottom: 0.1em;\n",
+       "    margin-top: 0.3em;\n",
+       "    display: block;\n",
+       "}\n",
+       "\n",
+       ".text_cell_render h3 {\n",
+       "    font-family: 'Fenix', serif;\n",
+       "    margin-top:12px;\n",
+       "\tfont-size: 16pt;\n",
+       "    margin-bottom: 3px;\n",
+       "    font-style: regular;\n",
+       "}\n",
+       "\n",
+       ".text_cell_render h4 {    /*Use this for captions*/\n",
+       "    font-family: 'Fenix', serif;\n",
+       "    font-size: 2pt;\n",
+       "    text-align: center;\n",
+       "    margin-top: 0em;\n",
+       "    margin-bottom: 2em;\n",
+       "    font-style: regular;\n",
+       "}\n",
+       "\n",
+       ".text_cell_render h5 {  /*Use this for small titles*/\n",
+       "    font-family: 'Alegreya Sans', sans-serif;\n",
+       "    font-weight: 300;\n",
+       "    font-size: 16pt;\n",
+       "    color: #CD2305;\n",
+       "    font-style: italic;\n",
+       "    margin-bottom: .5em;\n",
+       "    margin-top: 0.5em;\n",
+       "    display: block;\n",
+       "}\n",
+       "\n",
+       ".text_cell_render h6 { /*use this for copyright note*/\n",
+       "    font-family: 'Source Code Pro', sans-serif;\n",
+       "    font-weight: 300;\n",
+       "    font-size: 9pt;\n",
+       "    line-height: 100%;\n",
+       "    color: grey;\n",
+       "    margin-bottom: 1px;\n",
+       "    margin-top: 1px;\n",
+       "}\n",
+       "\n",
+       "    .CodeMirror{\n",
+       "            font-family: \"Source Code Pro\";\n",
+       "\t\t\tfont-size: 90%;\n",
+       "    }\n",
+       "/*    .prompt{\n",
+       "        display: None;\n",
+       "    }*/\n",
+       "\n",
+       "\n",
+       "    .warning{\n",
+       "        color: rgb( 240, 20, 20 )\n",
+       "        }\n",
+       "</style>\n",
+       "<script>\n",
+       "    MathJax.Hub.Config({\n",
+       "                        TeX: {\n",
+       "                           extensions: [\"AMSmath.js\"],\n",
+       "                           equationNumbers: { autoNumber: \"AMS\", useLabelIds: true}\n",
+       "                           },\n",
+       "                tex2jax: {\n",
+       "                    inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n",
+       "                    displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ]\n",
+       "                },\n",
+       "                displayAlign: 'center', // Change this to 'center' to center equations.\n",
+       "                \"HTML-CSS\": {\n",
+       "                    styles: {'.MathJax_Display': {\"margin\": 4}}\n",
+       "                }\n",
+       "        });\n",
+       "</script>\n"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 78,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "## This cell installs custom CSS Cell Styles obtained from \n",
+    "## Prof. Lorena Barba at https://github.com/barbagroup/AeroPython \n",
+    "from IPython.core.display import HTML\n",
+    "def css_styling():\n",
+    "    styles = open('styles/custom.css', 'r').read()\n",
+    "    return HTML(styles)\n",
+    "css_styling()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Step 1: Create a GitHub Repository and make an initial commit.\n",
+    "    a. Create a folder in your Documents folder called LastnameFirstname240FinalExam.\n",
+    "    b. Create a new repository within this folder called 240FinalExam\n",
+    "    c. Save this file into the above folder as LastnameFirstnameAnswers.ipynb \n",
+    "    d. You should then see an uncommitted change to the 240FinalExam repository; name this \"initial commit\"\n",
+    "    and publish the changes.\n",
+    "    \n",
+    "For example, if your name was Albert Einstein, you'd create a folder called   \n",
+    "    *EinsteinAlbert240FinalExam*,   \n",
+    "then you would create a new GitHub repository (within this folder) called   \n",
+    "    *240FinalExam*   \n",
+    "and would save this file into the folder 240FinalExam as    \n",
+    "    *EinsteinAlbertFinalAnswers.ipynb*   \n",
+    "and upload the file to your github account. \n",
+    "\n",
+    "Hint: Once you complete steps (a) and (b), you can simply close and halt this notebook (from the Jupyter Notebook file menu, and use your file system browser to drag this file into the folder 240FinalExam. Then this file's existence should show up as as an uncommitted change which you can publish (after first labelling it as the initial commit, of course). \n",
+    "\n",
+    "All of the above may be easily done by using a GitHub Gui Client available for OSX, Linux, and Windoze at:\n",
+    "https://github.com/gitterHQ/desktop\n",
+    "\n",
+    "For the following questions, I encourage you to make and publish a new commit after you finish each question.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Question 1\n",
+    "## Statistical Uncertainty with dropped velociraptors\n",
+    "\n",
+    "<img src=\"Velociraptor.jpg\" width=150 height=150>\n",
+    "\n",
+    "A velociraptor is dropped from a height of 10.0 $\\pm$ 0.1 meters and the fall time   \n",
+    "is measured to the nearest 0.01 seconds. This *experiment* is performed a dozen times with the following drop times in seconds obtained:   \n",
+    "1.22, 1.39, 1.55, 1.43, 1.11, 1.64, 1.44, 1.33, 1.55, 1.49, 1.47, 1.35   \n",
+    "Calculate the mean value of the drop time and the root mean square uncertainty, $\\Delta t_{rms}$. You may use python or---if you like suffering---your calculator. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Solution method :\n",
+    "\n",
+    "total value of the drop time (with uncertainty) = 16.97 $\\pm$ 0.12 seconds, rounding uncertainty to 1 sig.fig = 17.0 $\\pm$ 0.1 seconds\n",
+    "mean value of the drop time = 1.41 $\\pm$ 0.01 seconds,\n",
+    "$\\Delta t_{rms} = \\sqrt (\\Delta h/h)^2 * 1.41 = 0.0141$ seconds"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Question 1 Answer\n",
+    "\n",
+    "Mean time = 1.41 $\\pm$ 0.01 seconds\n",
+    "\n",
+    "$\\Delta t_{rms}$ = 0.0141 seconds"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Question 2\n",
+    "## Error Propagation; measuring g via dropped velociraptors\n",
+    "\n",
+    "Suppose you assume that the velociraptor drop experiment was used to determine the acceleration due to gravity. Using your knowledge of basic kinematics (and assuming\n",
+    "no air resistance), calculate the experimental value of $g$ that you should report for this data."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Solution Method:\n",
+    "\n",
+    "$h = v_{0}t +1/2gt^2$,\n",
+    "since $v_{0} = 0$, $h = 1/2gt^2$, $g = 2h/t^2$.\n",
+    "$g = 10.1$\n",
+    "$\\Delta g = \\sqrt(0.1/10)^2+(0.01/1.41)^2 = 0.1$\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# This cell is for any needed python code. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Question 2 Answer\n",
+    "\n",
+    "g = 10.1 $\\pm$ 0.1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Question 3\n",
+    "## Determining g with a point mass pendulum via plotting\n",
+    "\n",
+    "Suppose that you measure the period of a simple pendulum as a function of length   \n",
+    "and obtain the following data:   \n",
+    "\n",
+    "Period Values ($\\pm 0.1$ s) =  0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50.   \n",
+    "Length $(\\pm 0.03)$ m =  0.010,  0.025, 0.070,  0.10,  0.140, 0.230, 0.310, 0.350, 0.500   \n",
+    "\n",
+    "Knowing that the period of a simple pendulum is   \n",
+    "$\\displaystyle T = 2π\\sqrt{\\frac{L}{g}}$   \n",
+    "and use an appropriate graph, such that the plot:   \n",
+    "\n",
+    "    a. gives a straight line whose slope   \n",
+    "       directly gives the value of g   \n",
+    "    b. shows data points with error bars   \n",
+    "    c. includes axes labels and units   \n",
+    "    d. includes a best fit line to the data.   \n",
+    "\n",
+    "Note that you might not be on the earth when conducting this experiment.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Solution method:\n",
+    "\n",
+    "edit this cell to describe your solution method. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 111,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.932970720832\n",
+      "0.224543409366\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "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\n26/LAAAAAElFTkSuQmCC\n",
+      "text/plain": [
+       "<matplotlib.figure.Figure at 0x10efd0748>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "from pylab import *\n",
+    "from scipy import stats\n",
+    "from scipy.optimize import curve_fit\n",
+    "% matplotlib inline\n",
+    "from matplotlib import rc\n",
+    "rc('text', usetex=True)\n",
+    "from sklearn import datasets, linear_model\n",
+    "\n",
+    "\n",
+    "# plot function 4\\pi^2L = gT^2, the slope is g.\n",
+    "\n",
+    "x=[0.25,1,2.25,4,6.25,9,12.25,16,20.25]\n",
+    "\n",
+    "y=[0.394784176043574,0.986960440108936,2.76348923230502,3.94784176043574,5.52697846461004,9.08003604900221,12.2383094573508,13.8174461615251,19.7392088021787]\n",
+    "\n",
+    "(m,b)=polyfit(x,y,1)\n",
+    "print(m)\n",
+    "print(b)\n",
+    "\n",
+    "yp=polyval([m,b],x)\n",
+    "plot(x,yp)\n",
+    "scatter(x,y)\n",
+    "grid(True)\n",
+    "\n",
+    "\n",
+    "plt.title('length as a function of period squared')\n",
+    "plt.ylabel('$\\mathrm{4\\pi^2L(m)}$')\n",
+    "plt.xlabel('$\\mathrm{T^2 (s^2)}$')\n",
+    "\n",
+    "\n",
+    "plt.errorbar(x, y, xerr=0.1, yerr=0.03)\n",
+    "visible=True\n",
+    "\n",
+    "plt.show ()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Question 3 Answer\n",
+    "\n",
+    "g $\\pm\\;\\Delta$ g = 0.9 $\\pm$ 0.1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Final Step for online portion\n",
+    "## Final steps, then move on to written portion\n",
+    "\n",
+    "Now make sure to commit your changes to your master copy, but before doing so, place a link to your repository in the next cell.   "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Repository Link = https://github.com/jesshuang/240FinalExam.git"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
